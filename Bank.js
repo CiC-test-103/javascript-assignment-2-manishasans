@@ -9,8 +9,9 @@ class Bank {
 
     // Example: createAccount(name, initialDeposit)
     createAccount(name,initialDeposit) {
-        this.accounts = new Account(name, initialDeposit);
-        return this.accounts;
+        const newaccount = new Account(name, initialDeposit);
+        this.accounts.push(newaccount);
+        return newaccount;
        }   
     }   
 
@@ -28,17 +29,27 @@ class Account {
     // Example: deposit(amount) 
     // example data to be stored in transactionHistory { transactionType: 'Deposit', amount: 500 }
     deposit(amount) {
-        this.balance +=  amount;
-        this.transactionHistory.push(`{transactionType : 'Deposit', amount : ${amount}, balance : ${this.balance}}`);
-        return this.accounts;
+        if (amount > 0) {
+            this.balance +=  amount;
+            this.transactionHistory.push(`{transactionType : 'Deposit', amount : ${amount}, balance : ${this.balance}}`);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
  
     // Example: withdraw(amount)
     // example data to be stored in transactionHistory { transactionType: 'Withdrawal', amount: 200 }
     withdraw(amount) {
-        this.balance -=  amount;
-        this.transactionHistory.push(`{transactionType : 'Withdrawal', amount : ${amount}, balance : ${this.balance}}`);
-        return this.accounts;
+        if (amount > 0 && amount <= this.balance) {
+            this.balance -=  amount;
+            this.transactionHistory.push(`{transactionType : 'Withdrawal', amount : ${amount}, balance : ${this.balance}}`);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     // Example: transfer(amount, recipientAccount)
@@ -46,11 +57,16 @@ class Account {
     // for account sending { transactionType: 'Transfer', amount: 300, to: recipientName }
     // for account recieving { transactionType: 'Received', amount: 300, from: senderName }
     transfer(amount,recipientAccount){
-        this.balance -=  amount;
-        this.transactionHistory.push(`{transactionType : 'Transfered', amount : ${amount}, to: ${recipientAccount.name}, balance : ${this.balance}}`);
-        recipientAccount.balance += amount;
-        recipientAccount.transactionHistory.push(`{transactionType : 'Received', amount : ${amount}, from : ${this.name}, balance : ${recipientAccount.balance}}`);
-        return this.accounts;
+        if (amount > 0 && amount <= this.balance) {
+            this.balance -=  amount;
+            this.transactionHistory.push(`{transactionType : 'Transfered', amount : ${amount}, to: ${recipientAccount.name}, balance : ${this.balance}}`);
+            recipientAccount.balance += amount;
+            recipientAccount.transactionHistory.push(`{transactionType : 'Received', amount : ${amount}, from : ${this.name}, balance : ${recipientAccount.balance}}`);
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     
     // Example: checkBalance()
