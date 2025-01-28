@@ -32,7 +32,7 @@ class Account {
         if (amount > 0) {
             this.balance +=  amount;
             //this.transactionHistory.push(`{transactionType : 'Deposit', amount : ${amount}, balance : ${this.balance}}`);
-            this.transactionHistory.push(`{transactionType : 'Deposit', amount : ${amount}}`);
+            this.transactionHistory.push({transactionType : 'Deposit', amount : `${amount}`});
             return true;
         }
         else {
@@ -46,7 +46,7 @@ class Account {
         if (amount > 0 && amount <= this.balance) {
             this.balance -=  amount;
             //this.transactionHistory.push(`{transactionType : 'Withdrawal', amount : ${amount}, balance : ${this.balance}}`);
-            this.transactionHistory.push(`{transactionType : 'Withdrawal', amount : ${amount}}`);
+            this.transactionHistory.push({transactionType : 'Withdrawal', amount : `${amount}`});
             return true;
         }
         else {
@@ -62,10 +62,10 @@ class Account {
         if (amount > 0 && amount <= this.balance) {
             this.balance -=  amount;
             //this.transactionHistory.push(`{transactionType : 'Transfered', amount : ${amount}, to: ${recipientAccount.name}, balance : ${this.balance}}`);
-            this.transactionHistory.push(`{transactionType : 'Transfered', amount : ${amount}, to: ${recipientAccount.name}}`);
+            this.transactionHistory.push({transactionType : 'Transfered', amount : `${amount}`, to: `${recipientAccount.name}`});
             recipientAccount.balance += amount;
             //recipientAccount.transactionHistory.push(`{transactionType : 'Received', amount : ${amount}, from : ${this.name}, balance : ${recipientAccount.balance}}`);
-            recipientAccount.transactionHistory.push(`{transactionType : 'Received', amount : ${amount}, from : ${this.name}}`);
+            recipientAccount.transactionHistory.push({transactionType : 'Received', amount : `${amount}`, from : `${this.name}`});
             return true;
         }
         else {
